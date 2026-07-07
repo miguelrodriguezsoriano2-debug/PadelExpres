@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pista Express — Cambio de césped de pádel en 1 día</title>
+<meta name="description" content="Cambiamos el césped de tu pista de pádel en 1 día, con precio cerrado y fecha garantizada. Servicio en toda España.">
+<meta property="og:title" content="Pista Express — Tu pista, como nueva en 1 día">
+<meta property="og:description" content="Precio cerrado y fecha garantizada por contrato. Sin obra, sin esperas.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -45,7 +51,7 @@
 
   :focus-visible{outline:3px solid var(--teja);outline-offset:3px;}
 
-  .wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+  .wrap{max-width:1140px;margin:0 auto;padding-left:24px;padding-right:24px;}
   section{padding:88px 0;}
   @media (max-width:720px){section{padding:56px 0;}}
 
@@ -249,7 +255,12 @@
   .price-card .btn{width:100%;justify-content:center;}
 
   /* ---------- GUARANTEE ---------- */
-  .guarantee{background:var(--court-blue);color:var(--white);}
+  .guarantee{
+    background:
+      linear-gradient(180deg, rgba(8,28,41,0.90), rgba(13,43,62,0.94)),
+      url('court-detail.jpg') center 30%/cover no-repeat;
+    color:var(--white);
+  }
   .guarantee-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;}
   @media (max-width:900px){.guarantee-grid{grid-template-columns:1fr;gap:32px;}}
   .guarantee .section-head h2{color:var(--white);}
@@ -277,7 +288,9 @@
 
   /* ---------- FINAL CTA ---------- */
   .cta-final{
-    background:radial-gradient(120% 160% at 85% 110%, var(--court-blue-mid) 0%, var(--court-blue) 45%, var(--court-blue-deep) 100%);
+    background:
+      radial-gradient(120% 160% at 85% 110%, rgba(18,58,82,0.87) 0%, rgba(13,43,62,0.91) 45%, rgba(8,28,41,0.96) 100%),
+      url('court-action.jpg') center 65%/cover no-repeat;
     color:var(--white);
   }
   .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
@@ -350,7 +363,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">RENOVACIÓN DE PISTAS DE PÁDEL · MADRID</span>
+      <span class="eyebrow">RENOVACIÓN DE PISTAS DE PÁDEL · ESPAÑA</span>
       <h1>Tu pista,<br>como nueva<br><em>en 1 día.</em></h1>
       <p class="lead">Cambiamos el césped de tu pista de pádel con precio cerrado y fecha garantizada por contrato. Sin obra, sin esperar semanas, sin sorpresas en la factura.</p>
       <div class="hero-ctas">
@@ -424,7 +437,8 @@
   </div>
 </section>
 
-<section class="problem wrap">
+<section class="problem">
+  <div class="wrap">
   <div class="section-head reveal">
     <span class="eyebrow">¿RECONOCES ESTO?</span>
     <h2>Señales de que tu pista necesita cambio de césped</h2>
@@ -452,9 +466,11 @@
       <p>La bola bota distinto según la zona: la arena está descompensada o el césped ya no recupera.</p>
     </div>
   </div>
+  </div>
 </section>
 
-<section class="process wrap" id="como-funciona">
+<section class="process" id="como-funciona">
+  <div class="wrap">
   <div class="section-head reveal">
     <span class="eyebrow">CÓMO FUNCIONA</span>
     <h2>De tu mensaje a la pista lista, en 5 pasos</h2>
@@ -467,9 +483,11 @@
     <div class="step reveal"><div class="step-num">4</div><h3>Señal y fecha fija</h3><p>Confirmas con una señal y la fecha queda contratada.</p></div>
     <div class="step reveal"><div class="step-num">5</div><h3>Montaje en 1 día</h3><p>Retiramos el césped viejo e instalamos el nuevo en una jornada.</p></div>
   </div>
+  </div>
 </section>
 
-<section class="pricing wrap" id="precios">
+<section class="pricing" id="precios">
+  <div class="wrap">
   <div class="section-head reveal">
     <span class="eyebrow">PRECIO CERRADO</span>
     <h2>Tres tipos de césped, un único precio por pista</h2>
@@ -516,6 +534,7 @@
       <a class="btn btn-dark" href="#presupuesto">Elegir Premium</a>
     </div>
   </div>
+  </div>
 </section>
 
 <section class="guarantee">
@@ -545,7 +564,8 @@
   </div>
 </section>
 
-<section class="faq wrap" id="faq">
+<section class="faq" id="faq">
+  <div class="wrap">
   <div class="section-head reveal">
     <span class="eyebrow">PREGUNTAS FRECUENTES</span>
     <h2>Lo que suelen preguntarnos los clubes</h2>
@@ -561,7 +581,7 @@
     </div>
     <div class="faq-item reveal" data-open="false">
       <button class="faq-q">¿En qué zonas trabajáis?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-      <div class="faq-a"><p>Madrid capital y toda la Comunidad de Madrid. Si tu club está en otra provincia, escríbenos igualmente y te decimos disponibilidad.</p></div>
+      <div class="faq-a"><p>Trabajamos en toda España. Escríbenos con la ubicación de tu club y te confirmamos fecha y disponibilidad en tu zona.</p></div>
     </div>
     <div class="faq-item reveal" data-open="false">
       <button class="faq-q">¿Cómo es la forma de pago?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
@@ -571,6 +591,7 @@
       <button class="faq-q">¿Puedo elegir el color del césped?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       <div class="faq-a"><p>Sí, verde, azul o teja según el pack elegido. Te enseñamos muestras físicas en la visita técnica.</p></div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -614,7 +635,7 @@
         <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.28.86 5.84 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.23-8.27 8.23z"/></svg>
         Enviar por WhatsApp
       </button>
-      <p class="form-note">o escríbenos directo al 600 00 00 00</p>
+      <p class="form-note">o escríbenos directo al 659 81 82 11</p>
     </form>
   </div>
 </section>
@@ -622,7 +643,7 @@
 <footer>
   <div class="wrap footer-inner">
     <div class="logo">Pista Express</div>
-    <div>Madrid y Comunidad de Madrid · hola@pistaexpress.es · 600 00 00 00</div>
+    <div>España · hola@pistaexpress.es · 659 81 82 11</div>
   </div>
 </footer>
 
@@ -674,7 +695,7 @@
   });
 
   // lead form -> WhatsApp
-  const WHATSAPP_NUMBER = '34600000000'; // TODO: sustituir por el número real
+  const WHATSAPP_NUMBER = '34659818211';
   document.getElementById('leadForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const nombre = document.getElementById('nombre').value;
