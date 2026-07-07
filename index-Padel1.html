@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pista Express — Cambio de césped de pádel en 1 día</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --court-blue:#0D2B3E;
+    --court-blue-deep:#081C29;
+    --court-blue-mid:#123A52;
+    --teja:#B5502A;
+    --teja-light:#D3763F;
+    --turf:#3F8B4C;
+    --turf-deep:#2C6636;
+    --sand:#F1EAD9;
+    --sand-deep:#E4D8BC;
+    --ink:#152321;
+    --ink-soft:#3E4E4B;
+    --white:#FFFFFF;
+    --line:rgba(255,255,255,0.14);
+    --line-dark:rgba(21,35,33,0.12);
+    --font-display:'Space Grotesk',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+    --radius:14px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--sand);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;}
+  ul{list-style:none;}
+  button{font-family:inherit;}
+
+  :focus-visible{outline:3px solid var(--teja);outline-offset:3px;}
+
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+  section{padding:88px 0;}
+  @media (max-width:720px){section{padding:56px 0;}}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+
+  h1,h2,h3{font-family:var(--font-display);letter-spacing:-0.01em;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--font-display);font-weight:600;font-size:16px;
+    padding:15px 26px;border-radius:100px;border:none;cursor:pointer;
+    text-decoration:none;transition:transform .15s ease, box-shadow .15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-teja{background:var(--teja);color:var(--white);box-shadow:0 8px 20px -6px rgba(181,80,42,0.55);}
+  .btn-teja:hover{box-shadow:0 12px 26px -6px rgba(181,80,42,0.65);}
+  .btn-ghost{background:transparent;color:var(--white);border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--white);}
+  .btn-dark{background:var(--court-blue);color:var(--white);}
+
+  .whatsapp-icon{width:18px;height:18px;flex-shrink:0;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,43,62,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;max-width:1140px;margin:0 auto;color:var(--white);
+  }
+  .logo{
+    font-family:var(--font-display);font-weight:700;font-size:19px;
+    display:flex;align-items:center;gap:9px;
+  }
+  .logo-mark{width:26px;height:26px;flex-shrink:0;}
+  .nav-links{display:flex;gap:30px;font-size:14.5px;font-weight:500;}
+  .nav-links a{text-decoration:none;opacity:0.88;}
+  .nav-links a:hover{opacity:1;}
+  @media (max-width:760px){.nav-links{display:none;}}
+  .nav .btn{padding:11px 20px;font-size:14.5px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:radial-gradient(120% 140% at 15% -10%, var(--court-blue-mid) 0%, var(--court-blue) 45%, var(--court-blue-deep) 100%);
+    color:var(--white);
+    padding:72px 0 100px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;
+  }
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:44px;}}
+
+  .hero .eyebrow{color:var(--teja-light);margin-bottom:18px;display:block;}
+  .hero h1{
+    font-size:clamp(34px,4.6vw,54px);
+    line-height:1.06;
+    font-weight:700;
+    margin-bottom:20px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(180deg, transparent 62%, rgba(181,80,42,0.55) 62%);
+  }
+  .hero p.lead{
+    font-size:18px;color:rgba(255,255,255,0.82);max-width:480px;margin-bottom:32px;
+  }
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:36px;}
+  .hero-signals{
+    display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13.5px;color:rgba(255,255,255,0.72);
+  }
+  .hero-signals li{display:flex;align-items:center;gap:8px;}
+  .hero-signals svg{width:15px;height:15px;flex-shrink:0;color:var(--turf);}
+
+  /* before/after compare */
+  .compare-wrap{position:relative;}
+  .compare-label{
+    font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;
+    color:rgba(255,255,255,0.6);text-transform:uppercase;margin-bottom:10px;
+    display:flex;justify-content:space-between;
+  }
+  .compare{
+    position:relative;border-radius:18px;overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+    border:1px solid var(--line);
+    aspect-ratio:6/5;
+    background:var(--court-blue-deep);
+  }
+  .compare-layer{position:absolute;inset:0;}
+  .compare-layer svg{width:100%;height:100%;}
+  .after-layer{clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0);}
+  .compare-divider{
+    position:absolute;top:0;bottom:0;left:var(--pos,50%);
+    width:0;pointer-events:none;
+  }
+  .compare-divider::before{
+    content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;
+    background:var(--white);box-shadow:0 0 0 1px rgba(0,0,0,0.15);
+  }
+  .compare-handle{
+    position:absolute;top:50%;left:0;transform:translate(-50%,-50%);
+    width:46px;height:46px;border-radius:50%;background:var(--white);
+    display:flex;align-items:center;justify-content:center;gap:2px;
+    box-shadow:0 6px 16px rgba(0,0,0,0.3);color:var(--court-blue);
+  }
+  .compare-handle svg{width:14px;height:14px;}
+  .compare-range{
+    position:absolute;inset:0;width:100%;height:100%;margin:0;
+    opacity:0;cursor:ew-resize;appearance:none;-webkit-appearance:none;
+  }
+  .compare-range::-webkit-slider-thumb{-webkit-appearance:none;width:46px;height:46px;}
+  .compare-tag{
+    position:absolute;bottom:14px;font-family:var(--font-mono);font-size:11px;
+    letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:6px;
+    background:rgba(8,28,41,0.72);color:rgba(255,255,255,0.85);
+  }
+  .compare-tag.before{left:14px;}
+  .compare-tag.after{right:14px;}
+
+  /* ---------- PROBLEM ---------- */
+  .problem{background:var(--sand);}
+  .section-head{max-width:600px;margin-bottom:48px;}
+  .section-head .eyebrow{color:var(--teja);margin-bottom:14px;display:block;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px);color:var(--ink);margin-bottom:14px;}
+  .section-head p{color:var(--ink-soft);font-size:16.5px;}
+
+  .symptom-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  @media (max-width:900px){.symptom-grid{grid-template-columns:repeat(2,1fr);}}
+  .symptom{
+    background:var(--white);border-radius:var(--radius);padding:26px 22px;
+    border:1px solid var(--line-dark);
+  }
+  .symptom svg{width:26px;height:26px;color:var(--teja);margin-bottom:14px;}
+  .symptom h3{font-size:16px;color:var(--ink);margin-bottom:6px;font-weight:600;font-family:var(--font-body);}
+  .symptom p{font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- PROCESS ---------- */
+  .process{background:var(--white);}
+  .process-list{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;}
+  @media (max-width:900px){.process-list{grid-template-columns:1fr;gap:28px;}}
+  .process-list::before{
+    content:"";position:absolute;top:23px;left:6%;right:6%;height:1.5px;
+    background:var(--line-dark);
+  }
+  @media (max-width:900px){.process-list::before{display:none;}}
+  .step{position:relative;padding-right:18px;}
+  .step-num{
+    font-family:var(--font-mono);font-weight:600;font-size:14px;
+    width:46px;height:46px;border-radius:50%;background:var(--court-blue);color:var(--white);
+    display:flex;align-items:center;justify-content:center;position:relative;z-index:1;
+    margin-bottom:18px;
+  }
+  .step h3{font-size:16.5px;margin-bottom:8px;font-weight:600;font-family:var(--font-body);color:var(--ink);}
+  .step p{font-size:14px;color:var(--ink-soft);}
+
+  /* ---------- PRICING ---------- */
+  .pricing{background:var(--sand);}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  @media (max-width:900px){.price-grid{grid-template-columns:1fr;}}
+  .price-card{
+    background:var(--white);border-radius:18px;padding:32px 28px;
+    border:1.5px solid var(--line-dark);display:flex;flex-direction:column;
+    position:relative;
+  }
+  .price-card.featured{
+    border-color:var(--teja);
+    box-shadow:0 24px 40px -22px rgba(181,80,42,0.35);
+  }
+  .price-card.featured::before{
+    content:"Más elegido";
+    position:absolute;top:-13px;left:28px;
+    background:var(--teja);color:var(--white);
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    padding:5px 12px;border-radius:100px;
+  }
+  .price-card h3{font-size:20px;margin-bottom:4px;color:var(--ink);}
+  .price-card .turf-type{font-size:13.5px;color:var(--ink-soft);margin-bottom:22px;}
+  .price-amount{
+    font-family:var(--font-mono);font-weight:600;font-size:38px;color:var(--court-blue);
+    margin-bottom:2px;
+  }
+  .price-amount span{font-size:16px;font-weight:500;color:var(--ink-soft);}
+  .price-note{font-size:12.5px;color:var(--ink-soft);margin-bottom:24px;}
+  .price-features{margin-bottom:28px;flex-grow:1;}
+  .price-features li{
+    display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink-soft);
+    margin-bottom:12px;
+  }
+  .price-features svg{width:17px;height:17px;color:var(--turf);flex-shrink:0;margin-top:2px;}
+  .price-card .btn{width:100%;justify-content:center;}
+
+  /* ---------- GUARANTEE ---------- */
+  .guarantee{background:var(--court-blue);color:var(--white);}
+  .guarantee-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;}
+  @media (max-width:900px){.guarantee-grid{grid-template-columns:1fr;gap:32px;}}
+  .guarantee .section-head h2{color:var(--white);}
+  .guarantee .section-head p{color:rgba(255,255,255,0.72);}
+  .guarantee .section-head .eyebrow{color:var(--teja-light);}
+  .g-item svg{width:30px;height:30px;color:var(--teja-light);margin-bottom:16px;}
+  .g-item h3{font-size:17.5px;margin-bottom:8px;font-weight:600;font-family:var(--font-body);}
+  .g-item p{font-size:14.5px;color:rgba(255,255,255,0.72);}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--white);}
+  .faq-list{max-width:760px;}
+  .faq-item{border-bottom:1px solid var(--line-dark);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    padding:22px 0;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--font-display);font-weight:600;font-size:16.5px;color:var(--ink);gap:20px;
+  }
+  .faq-q svg{width:20px;height:20px;flex-shrink:0;transition:transform .25s ease;color:var(--teja);}
+  .faq-item[data-open="true"] .faq-q svg{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;overflow:hidden;transition:max-height .3s ease;
+  }
+  .faq-a p{padding-bottom:22px;color:var(--ink-soft);font-size:15px;max-width:640px;}
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-final{
+    background:radial-gradient(120% 160% at 85% 110%, var(--court-blue-mid) 0%, var(--court-blue) 45%, var(--court-blue-deep) 100%);
+    color:var(--white);
+  }
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  @media (max-width:900px){.cta-grid{grid-template-columns:1fr;gap:40px;}}
+  .cta-final h2{font-size:clamp(26px,3.6vw,36px);margin-bottom:16px;}
+  .cta-final .lead{color:rgba(255,255,255,0.75);font-size:16.5px;margin-bottom:28px;max-width:440px;}
+  .cta-final-signals{display:flex;flex-direction:column;gap:14px;}
+  .cta-final-signals li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:rgba(255,255,255,0.82);}
+  .cta-final-signals svg{width:18px;height:18px;color:var(--turf);flex-shrink:0;margin-top:2px;}
+
+  .form-card{background:var(--white);border-radius:18px;padding:32px;color:var(--ink);}
+  .form-card h3{font-size:19px;margin-bottom:6px;}
+  .form-card .sub{font-size:14px;color:var(--ink-soft);margin-bottom:22px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  .field input,.field select{
+    width:100%;padding:12px 14px;border-radius:9px;border:1.5px solid var(--line-dark);
+    font-family:var(--font-body);font-size:14.5px;background:var(--sand);color:var(--ink);
+  }
+  .field input:focus,.field select:focus{border-color:var(--court-blue);outline:none;}
+  .form-card .btn{width:100%;justify-content:center;margin-top:6px;}
+  .form-note{font-size:12px;color:var(--ink-soft);margin-top:14px;text-align:center;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--court-blue-deep);color:rgba(255,255,255,0.6);padding:40px 0;font-size:13.5px;}
+  .footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center;}
+  .footer-inner .logo{color:var(--white);font-size:16px;}
+
+  /* mobile sticky whatsapp bar */
+  .mobile-bar{display:none;}
+  @media (max-width:760px){
+    .mobile-bar{
+      display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;
+      background:var(--court-blue-deep);padding:12px 16px;
+      box-shadow:0 -8px 20px rgba(0,0,0,0.25);
+    }
+    .mobile-bar .btn{width:100%;justify-content:center;}
+    body{padding-bottom:74px;}
+  }
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="#B5502A"/><path d="M6 13H20M13 6V20" stroke="white" stroke-width="2"/></svg>
+      Pista Express
+    </div>
+    <nav class="nav-links">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#precios">Precios</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <a class="btn btn-teja" href="#presupuesto">
+      <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.28.86 5.84 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.23-8.27 8.23z"/></svg>
+      Escríbenos
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">RENOVACIÓN DE PISTAS DE PÁDEL · MADRID</span>
+      <h1>Tu pista,<br>como nueva<br><em>en 1 día.</em></h1>
+      <p class="lead">Cambiamos el césped de tu pista de pádel con precio cerrado y fecha garantizada por contrato. Sin obra, sin esperar semanas, sin sorpresas en la factura.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-teja" href="#presupuesto">
+          <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.28.86 5.84 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.23-8.27 8.23z"/></svg>
+          Pide tu precio por WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#precios">Ver precios cerrados</a>
+      </div>
+      <ul class="hero-signals">
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Instalación en 1 día</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Césped homologado FEP</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Fecha garantizada por contrato</li>
+      </ul>
+    </div>
+
+    <div class="compare-wrap">
+      <div class="compare-label"><span>ANTES</span><span>ARRASTRA PARA COMPARAR</span><span>DESPUÉS</span></div>
+      <div class="compare" id="compare" style="--pos:50%">
+        <div class="compare-layer before-layer">
+          <svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="600" height="300" fill="#6B7355"/>
+            <rect x="20" y="20" width="560" height="260" rx="3" fill="#5B7350"/>
+            <path d="M60 60 Q90 40 130 65 T210 55 Q230 75 200 95 T140 110 Q100 100 70 120 T60 60Z" fill="#8A7A52" opacity="0.55"/>
+            <path d="M380 180 Q420 160 460 190 T540 200 Q550 230 510 245 T430 250 Q400 220 380 180Z" fill="#8A7A52" opacity="0.5"/>
+            <path d="M220 190 Q250 210 230 240" stroke="#3E4A32" stroke-width="3" opacity="0.6" fill="none"/>
+            <path d="M300 20 L300 280" stroke="#E9E4D2" stroke-width="4" opacity="0.55" stroke-dasharray="10 6"/>
+            <path d="M170 20 L170 280" stroke="#E9E4D2" stroke-width="2.5" opacity="0.4" stroke-dasharray="8 6"/>
+            <path d="M430 20 L430 280" stroke="#E9E4D2" stroke-width="2.5" opacity="0.4" stroke-dasharray="8 6"/>
+            <path d="M170 150 L300 150" stroke="#E9E4D2" stroke-width="2.5" opacity="0.4" stroke-dasharray="8 6"/>
+            <path d="M300 150 L430 150" stroke="#E9E4D2" stroke-width="2.5" opacity="0.4" stroke-dasharray="8 6"/>
+            <rect x="296" y="14" width="8" height="10" fill="#4A5A48"/>
+            <rect x="296" y="276" width="8" height="10" fill="#4A5A48"/>
+          </svg>
+        </div>
+        <div class="compare-layer after-layer">
+          <svg viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="turfGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#48A157"/>
+                <stop offset="100%" stop-color="#357A42"/>
+              </linearGradient>
+              <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="35%" stop-color="#ffffff" stop-opacity="0"/>
+                <stop offset="50%" stop-color="#ffffff" stop-opacity="0.10"/>
+                <stop offset="65%" stop-color="#ffffff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <rect width="600" height="300" fill="#12324A"/>
+            <rect x="20" y="20" width="560" height="260" rx="3" fill="url(#turfGrad)"/>
+            <rect x="20" y="20" width="560" height="260" rx="3" fill="url(#sheen)"/>
+            <path d="M300 20 L300 280" stroke="#ffffff" stroke-width="4"/>
+            <path d="M170 20 L170 280" stroke="#ffffff" stroke-width="2.5"/>
+            <path d="M430 20 L430 280" stroke="#ffffff" stroke-width="2.5"/>
+            <path d="M170 150 L300 150" stroke="#ffffff" stroke-width="2.5"/>
+            <path d="M300 150 L430 150" stroke="#ffffff" stroke-width="2.5"/>
+            <rect x="295" y="12" width="10" height="12" rx="2" fill="#0A2436"/>
+            <rect x="295" y="276" width="10" height="12" rx="2" fill="#0A2436"/>
+          </svg>
+        </div>
+        <div class="compare-divider">
+          <div class="compare-handle">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 6L2 12L8 18M16 6L22 12L16 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <input type="range" class="compare-range" min="0" max="100" value="50" aria-label="Comparar pista antes y después de la renovación" id="compareRange">
+        <span class="compare-tag before">Antes</span>
+        <span class="compare-tag after">Después</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem wrap">
+  <div class="section-head reveal">
+    <span class="eyebrow">¿RECONOCES ESTO?</span>
+    <h2>Señales de que tu pista necesita cambio de césped</h2>
+    <p>Si tu club tiene alguna de estas señales, cada semana que pasa pierdes reservas y quejas de socios.</p>
+  </div>
+  <div class="symptom-grid">
+    <div class="symptom reveal">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 16c2-2 4-2 6 0s4 2 6 0 4-2 4-2M4 10c2-2 4-2 6 0s4 2 6 0 4-2 4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <h3>Charcos que no drenan</h3>
+      <p>El agua se queda en superficie tras llover y la pista tarda horas en poder usarse.</p>
+    </div>
+    <div class="symptom reveal">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <h3>Calvas y fibra tumbada</h3>
+      <p>Zonas peladas por el desgaste, sobre todo en el centro y los fondos de pista.</p>
+    </div>
+    <div class="symptom reveal">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <h3>Juntas abiertas</h3>
+      <p>Costuras levantadas o descosidas que provocan tropiezos y bote irregular.</p>
+    </div>
+    <div class="symptom reveal">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6m0 0l-8 12h16L12 9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <h3>Bote impredecible</h3>
+      <p>La bola bota distinto según la zona: la arena está descompensada o el césped ya no recupera.</p>
+    </div>
+  </div>
+</section>
+
+<section class="process wrap" id="como-funciona">
+  <div class="section-head reveal">
+    <span class="eyebrow">CÓMO FUNCIONA</span>
+    <h2>De tu mensaje a la pista lista, en 5 pasos</h2>
+    <p>Un proceso corto y con fecha fija desde el primer contacto.</p>
+  </div>
+  <div class="process-list">
+    <div class="step reveal"><div class="step-num">1</div><h3>Nos escribes</h3><p>Por WhatsApp, respuesta en menos de 1 hora en horario laboral.</p></div>
+    <div class="step reveal"><div class="step-num">2</div><h3>Visita técnica</h3><p>Medimos y revisamos la pista sin coste ni compromiso.</p></div>
+    <div class="step reveal"><div class="step-num">3</div><h3>Presupuesto cerrado</h3><p>En 24-48h, con precio fijo y fecha propuesta.</p></div>
+    <div class="step reveal"><div class="step-num">4</div><h3>Señal y fecha fija</h3><p>Confirmas con una señal y la fecha queda contratada.</p></div>
+    <div class="step reveal"><div class="step-num">5</div><h3>Montaje en 1 día</h3><p>Retiramos el césped viejo e instalamos el nuevo en una jornada.</p></div>
+  </div>
+</section>
+
+<section class="pricing wrap" id="precios">
+  <div class="section-head reveal">
+    <span class="eyebrow">PRECIO CERRADO</span>
+    <h2>Tres tipos de césped, un único precio por pista</h2>
+    <p>Pista estándar de 20×10 m. Incluye retirada del césped antiguo, instalación y arena de sílice. IVA no incluido.</p>
+  </div>
+  <div class="price-grid">
+    <div class="price-card reveal">
+      <h3>Básico</h3>
+      <p class="turf-type">Césped fibrilado</p>
+      <div class="price-amount">4.990€<span> /pista</span></div>
+      <p class="price-note">Juego rápido, bote regular</p>
+      <ul class="price-features">
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Retirada del césped viejo</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Homologado por la FEP</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Arena de sílice incluida</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>2 años de garantía de instalación</li>
+      </ul>
+      <a class="btn btn-dark" href="#presupuesto">Elegir Básico</a>
+    </div>
+    <div class="price-card featured reveal">
+      <h3>Pro</h3>
+      <p class="turf-type">Césped monofilamento</p>
+      <div class="price-amount">5.690€<span> /pista</span></div>
+      <p class="price-note">Mayor recuperación de fibra, más duradero</p>
+      <ul class="price-features">
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Todo lo del pack Básico</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Mayor vida útil en uso intensivo</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Garantía de fábrica hasta 10 años</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>3 colores a elegir</li>
+      </ul>
+      <a class="btn btn-teja" href="#presupuesto">Elegir Pro</a>
+    </div>
+    <div class="price-card reveal">
+      <h3>Premium</h3>
+      <p class="turf-type">Césped monofilamento texturizado</p>
+      <div class="price-amount">6.490€<span> /pista</span></div>
+      <p class="price-note">Menos juntas, acabado de competición</p>
+      <ul class="price-features">
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Todo lo del pack Pro</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Rollos anchos, menos costuras</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bote más regular y estable</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Acabado recomendado para torneos</li>
+      </ul>
+      <a class="btn btn-dark" href="#presupuesto">Elegir Premium</a>
+    </div>
+  </div>
+</section>
+
+<section class="guarantee">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">POR QUÉ CON NOSOTROS</span>
+      <h2>Tres garantías por escrito, no solo promesas</h2>
+      <p>Lo que diferencia un cambio de césped bien hecho de uno improvisado.</p>
+    </div>
+    <div class="guarantee-grid">
+      <div class="g-item reveal">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.8"/></svg>
+        <h3>Fecha fija en el contrato</h3>
+        <p>Tu presupuesto incluye la fecha de instalación firmada, no una estimación orientativa.</p>
+      </div>
+      <div class="g-item reveal">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M21 12c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6l9-4 9 4v6z" stroke="currentColor" stroke-width="1.8"/></svg>
+        <h3>Instalación garantizada</h3>
+        <p>Si una junta o costura falla en los primeros 2 años, la reparamos sin coste.</p>
+      </div>
+      <div class="g-item reveal">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16M4 6h16M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <h3>Precio cerrado desde el día 1</h3>
+        <p>Lo que ves en el presupuesto es lo que pagas. Nada de extras de última hora.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq wrap" id="faq">
+  <div class="section-head reveal">
+    <span class="eyebrow">PREGUNTAS FRECUENTES</span>
+    <h2>Lo que suelen preguntarnos los clubes</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal" data-open="false">
+      <button class="faq-q">¿Cuánto tiempo estará cerrada la pista?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="faq-a"><p>Un solo día. Llegamos por la mañana, retiramos el césped antiguo, instalamos el nuevo y extendemos la arena. La pista queda lista para jugar al día siguiente.</p></div>
+    </div>
+    <div class="faq-item reveal" data-open="false">
+      <button class="faq-q">¿Qué hacéis con el césped viejo?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="faq-a"><p>Lo retiramos y lo llevamos a un gestor de residuos autorizado. Ese coste ya está incluido en el precio cerrado.</p></div>
+    </div>
+    <div class="faq-item reveal" data-open="false">
+      <button class="faq-q">¿En qué zonas trabajáis?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="faq-a"><p>Madrid capital y toda la Comunidad de Madrid. Si tu club está en otra provincia, escríbenos igualmente y te decimos disponibilidad.</p></div>
+    </div>
+    <div class="faq-item reveal" data-open="false">
+      <button class="faq-q">¿Cómo es la forma de pago?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="faq-a"><p>Una señal al confirmar la fecha y el resto al terminar la instalación, con factura. Sin sorpresas a mitad de proyecto.</p></div>
+    </div>
+    <div class="faq-item reveal" data-open="false">
+      <button class="faq-q">¿Puedo elegir el color del césped?<svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <div class="faq-a"><p>Sí, verde, azul o teja según el pack elegido. Te enseñamos muestras físicas en la visita técnica.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="presupuesto">
+  <div class="wrap cta-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--teja-light);">ÚLTIMO PASO</span>
+      <h2>Cuéntanos de tu pista y te respondemos hoy mismo</h2>
+      <p class="lead">Rellena el formulario o escríbenos directamente por WhatsApp. Sin compromiso.</p>
+      <ul class="cta-final-signals">
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Respuesta en menos de 1 hora (horario laboral)</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Visita y presupuesto sin coste</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sin compromiso de contratación</li>
+      </ul>
+    </div>
+
+    <form class="form-card reveal" id="leadForm">
+      <h3>Pide tu presupuesto</h3>
+      <p class="sub">Te escribimos por WhatsApp con la información que nos dejes aquí.</p>
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" required placeholder="Tu nombre">
+      </div>
+      <div class="field">
+        <label for="club">Club o instalación</label>
+        <input type="text" id="club" required placeholder="Nombre del club">
+      </div>
+      <div class="field">
+        <label for="pistas">Número de pistas a renovar</label>
+        <select id="pistas">
+          <option value="1 pista">1 pista</option>
+          <option value="2-3 pistas">2-3 pistas</option>
+          <option value="4 o más pistas">4 o más pistas</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" required placeholder="600 000 000">
+      </div>
+      <button type="submit" class="btn btn-teja">
+        <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.28.86 5.84 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.23-8.27 8.23z"/></svg>
+        Enviar por WhatsApp
+      </button>
+      <p class="form-note">o escríbenos directo al 600 00 00 00</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo">Pista Express</div>
+    <div>Madrid y Comunidad de Madrid · hola@pistaexpress.es · 600 00 00 00</div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn-teja" href="#presupuesto">
+    <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24 2.2 0 4.28.86 5.84 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.23-8.27 8.23z"/></svg>
+    Escríbenos por WhatsApp
+  </a>
+</div>
+
+<script>
+  // before/after compare slider
+  const range = document.getElementById('compareRange');
+  const compare = document.getElementById('compare');
+  range.addEventListener('input', () => {
+    compare.style.setProperty('--pos', range.value + '%');
+  });
+  // touch/drag improvement: allow dragging anywhere on the compare box
+  let dragging = false;
+  compare.addEventListener('pointerdown', (e) => { dragging = true; updateFromPointer(e); });
+  window.addEventListener('pointermove', (e) => { if(dragging) updateFromPointer(e); });
+  window.addEventListener('pointerup', () => dragging = false);
+  function updateFromPointer(e){
+    const rect = compare.getBoundingClientRect();
+    let pct = ((e.clientX - rect.left) / rect.width) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+    range.value = pct;
+    compare.style.setProperty('--pos', pct + '%');
+  }
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const panel = item.querySelector('.faq-a');
+    btn.setAttribute('aria-expanded','false');
+    btn.addEventListener('click', () => {
+      const isOpen = item.getAttribute('data-open') === 'true';
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.setAttribute('data-open','false');
+        i.querySelector('.faq-a').style.maxHeight = null;
+        i.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.setAttribute('data-open','true');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  // lead form -> WhatsApp
+  const WHATSAPP_NUMBER = '34600000000'; // TODO: sustituir por el número real
+  document.getElementById('leadForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const club = document.getElementById('club').value;
+    const pistas = document.getElementById('pistas').value;
+    const telefono = document.getElementById('telefono').value;
+    const msg = `Hola, soy ${nombre} de ${club}. Quiero un presupuesto para cambiar el césped de ${pistas}. Mi teléfono es ${telefono}.`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
